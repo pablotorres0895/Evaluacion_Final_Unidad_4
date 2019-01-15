@@ -3,6 +3,9 @@ let Calculadora = {
 
     },
     init : function(){
+        let numUno    = 0;
+        let numDos    = 0;
+        let operador;
         let resultado = document.getElementById('display')
         
         let punto = document.getElementById('punto')
@@ -27,6 +30,11 @@ let Calculadora = {
         let cero   = document.getElementById('0')
 
         //eventos numeros
+        cero.onclick = function(e){
+            if(resultado.textContent != '0' && resultado.textContent.length < 8){
+                resultado.textContent = resultado.textContent + cero.id
+            }
+        }
         uno.onclick = function(e){
             if(resultado.textContent === '0'){
                 resultado.textContent = uno.id
@@ -111,8 +119,12 @@ let Calculadora = {
                 resultado.textContent = resultado.textContent + '.'
             }
         }
+        
         // eventos operadores
         mas.onclick = function(e){
+            numUno = resultado.textContent
+            operador = '+'
+            resultado.textContent = '';
 
         }
         menos.onclick = function(e){
@@ -123,6 +135,42 @@ let Calculadora = {
         }
         por.onclick = function(e){
 
+        }
+        igual.onclick = function(e){
+            let ultimoValor = 0;
+            if(resultado.textContent == ''){
+
+                numDos = resultado.textContent
+                console.log(numDos)
+                ultimoValor = numDos;
+            }else{
+                numDos = ultimoValor;
+            }
+            let total = 0;
+            switch (operador) {
+                case '+':
+                    total = parseFloat(numUno)+parseFloat(numDos);
+                    
+                    break;
+                case '-':
+                    total = parseFloat(numUno)-parseFloat(numDos);
+                     
+                    break;
+            
+                case '*':
+                    total = parseFloat(numUno)*parseFloat(numDos);
+                    
+                    break;
+            
+                case '/':
+                    total = parseFloat(numUno)/parseFloat(numDos);
+                    
+                    break;
+                        
+                default:
+                    break;
+            }
+            resultado.textContent = total;
         }
     }
 }
