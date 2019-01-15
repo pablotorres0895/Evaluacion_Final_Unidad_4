@@ -8,8 +8,8 @@ let Calculadora = {
         let operador;
         let resultado = document.getElementById('display')
         
-        let punto = document.getElementById('punto')
-        let on    = document.getElementById('on')
+        let punto   = document.getElementById('punto')
+        let on      = document.getElementById('on')
         let signo   = document.getElementById('sign')
         // operadores
         let igual   = document.getElementById('igual')
@@ -98,7 +98,6 @@ let Calculadora = {
                 resultado.textContent = resultado.textContent + nueve.id
             }
         }
-
         //eventos secundarios
         on.onclick = function(e){
             resultado.textContent = '0';
@@ -118,8 +117,7 @@ let Calculadora = {
             if(!resultado.textContent.includes('.') && resultado.textContent.length < 8){
                 resultado.textContent = resultado.textContent + '.'
             }
-        }
-        
+        } 
         // eventos operadores
         mas.onclick = function(e){
             numUno = resultado.textContent
@@ -128,49 +126,48 @@ let Calculadora = {
 
         }
         menos.onclick = function(e){
+            numUno = resultado.textContent
+            operador = '-'
+            resultado.textContent = '';
 
         }
         dividir.onclick = function(e){
+            numUno = resultado.textContent
+            operador = '/'
+            resultado.textContent = '';
 
         }
         por.onclick = function(e){
+            numUno = resultado.textContent
+            operador = '*'
+            resultado.textContent = '';
 
         }
         igual.onclick = function(e){
-            let ultimoValor = 0;
-            if(resultado.textContent == ''){
-
-                numDos = resultado.textContent
-                console.log(numDos)
-                ultimoValor = numDos;
-            }else{
-                numDos = ultimoValor;
-            }
+            numDos = resultado.textContent
             let total = 0;
+            let value;
             switch (operador) {
                 case '+':
                     total = parseFloat(numUno)+parseFloat(numDos);
-                    
                     break;
                 case '-':
                     total = parseFloat(numUno)-parseFloat(numDos);
-                     
                     break;
-            
                 case '*':
                     total = parseFloat(numUno)*parseFloat(numDos);
-                    
                     break;
-            
                 case '/':
                     total = parseFloat(numUno)/parseFloat(numDos);
-                    
                     break;
-                        
                 default:
                     break;
             }
-            resultado.textContent = total;
+            value = ''+total;
+            while (value.length > 8){
+                value = value.slice(0, -1);
+            }
+            resultado.textContent = value;
         }
     }
 }
