@@ -5,6 +5,7 @@ let Calculadora = {
     init : function(){
         let numUno    = 0;
         let numDos    = 0;
+        let numAux    = 0;
         let operador;
         let resultado = document.getElementById('display')
         
@@ -29,6 +30,7 @@ let Calculadora = {
         let uno    = document.getElementById('1')
         let cero   = document.getElementById('0')
 
+        
         //eventos numeros
         cero.onclick = function(e){
             if(resultado.textContent != '0' && resultado.textContent.length < 8){
@@ -120,24 +122,27 @@ let Calculadora = {
         } 
         // eventos operadores
         mas.onclick = function(e){
+            numAux = 0;
             numUno = resultado.textContent
             operador = '+'
             resultado.textContent = '';
-
         }
         menos.onclick = function(e){
+            numAux = 0;
             numUno = resultado.textContent
             operador = '-'
             resultado.textContent = '';
 
         }
         dividir.onclick = function(e){
+            numAux = 0;
             numUno = resultado.textContent
             operador = '/'
             resultado.textContent = '';
 
         }
         por.onclick = function(e){
+            numAux = 0;
             numUno = resultado.textContent
             operador = '*'
             resultado.textContent = '';
@@ -145,8 +150,14 @@ let Calculadora = {
         }
         igual.onclick = function(e){
             numDos = resultado.textContent
+            if (numAux === 0){
+                numAux = numDos;
+            }else{
+                numUno = numDos;
+                numDos = numAux;
+            }
             let total = 0;
-            let value;
+            //let value;
             switch (operador) {
                 case '+':
                     total = parseFloat(numUno)+parseFloat(numDos);
@@ -163,11 +174,11 @@ let Calculadora = {
                 default:
                     break;
             }
-            value = ''+total;
-            while (value.length > 8){
-                value = value.slice(0, -1);
-            }
-            resultado.textContent = value;
+            //value = ''+total;
+            //while (value.length > 8){
+            //    value = value.slice(0, -1);
+            //}
+            resultado.textContent = total;
         }
     }
 }
