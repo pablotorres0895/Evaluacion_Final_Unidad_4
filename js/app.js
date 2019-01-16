@@ -157,7 +157,7 @@ let Calculadora = {
                 numDos = numAux;
             }
             let total = 0;
-            //let value;
+            let value;
             switch (operador) {
                 case '+':
                     total = parseFloat(numUno)+parseFloat(numDos);
@@ -174,10 +174,12 @@ let Calculadora = {
                 default:
                     break;
             }
-            //value = ''+total;
-            //while (value.length > 8){
-            //    value = value.slice(0, -1);
-            //}
+            
+            value = ''+total;
+            if (value.length > 8 && value.includes('.')){
+                console.log(total);
+                total = total.toPrecision(8);
+            }
             resultado.textContent = total;
         }
     }
