@@ -1,23 +1,28 @@
 let Calculadora = {
-    keyPressResize: function(){
-
+    setData : function(screenData,numElement){
+        if(screenData.textContent === '0'){
+            screenData.textContent = numElement.id
+        }else if(screenData.textContent.length < 8){
+            screenData.textContent = screenData.textContent + numElement.id
+        }
     },
-    init : function(){
-        let numUno    = 0;
-        let numDos    = 0;
-        let numAux    = 0;
-        let operador;
+    keyPressEffect: function(){
+        let teclas = document.querySelectorAll('.tecla');
+        for (let i = 0; i < teclas.length; i++) {
+            teclas[i].onmousedown = function(e){
+                e.preventDefault()
+                teclas[i].style.transform = "scale(0.9)"
+            }
+            teclas[i].onmouseup = function(e){
+                e.preventDefault()
+                teclas[i].style.transform = "scale(1)"
+            }
+
+        }
+    },
+    keyPressNumbers : function(){
+        let calculadora = this
         let resultado = document.getElementById('display')
-        
-        let punto   = document.getElementById('punto')
-        let on      = document.getElementById('on')
-        let signo   = document.getElementById('sign')
-        // operadores
-        let igual   = document.getElementById('igual')
-        let mas     = document.getElementById('mas')
-        let dividir = document.getElementById('dividido')
-        let menos   = document.getElementById('menos')
-        let por     = document.getElementById('por')
         // numeros
         let nueve  = document.getElementById('9')
         let ocho   = document.getElementById('8')
@@ -30,7 +35,6 @@ let Calculadora = {
         let uno    = document.getElementById('1')
         let cero   = document.getElementById('0')
 
-        
         //eventos numeros
         cero.onclick = function(e){
             if(resultado.textContent != '0' && resultado.textContent.length < 8){
@@ -38,68 +42,40 @@ let Calculadora = {
             }
         }
         uno.onclick = function(e){
-            if(resultado.textContent === '0'){
-                resultado.textContent = uno.id
-            }else if(resultado.textContent.length < 8){
-                resultado.textContent = resultado.textContent + uno.id
-            }
+            calculadora.setData(resultado, uno);
         }
         dos.onclick = function(e){
-            if(resultado.textContent === '0'){
-                resultado.textContent = dos.id
-            }else if(resultado.textContent.length < 8){
-                resultado.textContent = resultado.textContent + dos.id
-            }
+            calculadora.setData(resultado, dos)
         }
         tres.onclick = function(e){
-            if(resultado.textContent === '0'){
-                resultado.textContent = tres.id
-            }else if(resultado.textContent.length < 8){
-                resultado.textContent = resultado.textContent + tres.id
-            }
+            calculadora.setData(resultado, tres)
         }
         cuatro.onclick = function(e){
-            if(resultado.textContent === '0'){
-                resultado.textContent = cuatro.id
-            }else if(resultado.textContent.length < 8){
-                resultado.textContent = resultado.textContent + cuatro.id
-            }
+            calculadora.setData(resultado, cuatro)
         }
         cinco.onclick = function(e){
-            if(resultado.textContent === '0'){
-                resultado.textContent = cinco.id
-            }else if(resultado.textContent.length < 8){
-                resultado.textContent = resultado.textContent + cinco.id
-            }
+            calculadora.setData(resultado, cinco)
         }
         seis.onclick = function(e){
-            if(resultado.textContent === '0'){
-                resultado.textContent = seis.id
-            }else if(resultado.textContent.length < 8){
-                resultado.textContent = resultado.textContent + seis.id
-            }
+            calculadora.setData(resultado, seis)
         }
         siete.onclick = function(e){
-            if(resultado.textContent === '0'){
-                resultado.textContent = siete.id
-            }else if(resultado.textContent.length < 8){
-                resultado.textContent = resultado.textContent + siete.id
-            }
+            calculadora.setData(resultado, siete)
         }
         ocho.onclick = function(e){
-            if(resultado.textContent === '0'){
-                resultado.textContent = ocho.id
-            }else if(resultado.textContent.length < 8){
-                resultado.textContent = resultado.textContent + ocho.id
-            }
+            calculadora.setData(resultado, ocho)
         }
         nueve.onclick = function(e){
-            if(resultado.textContent === '0'){
-                resultado.textContent = nueve.id
-            }else if(resultado.textContent.length < 8){
-                resultado.textContent = resultado.textContent + nueve.id
-            }
+            calculadora.setData(resultado, nueve)
         }
+    },
+    keyPressSymbols : function(){
+        let resultado = document.getElementById('display')
+        //--------------------------------------------------
+        let punto   = document.getElementById('punto')
+        let on      = document.getElementById('on')
+        let signo   = document.getElementById('sign')
+
         //eventos secundarios
         on.onclick = function(e){
             resultado.textContent = '0';
@@ -120,6 +96,22 @@ let Calculadora = {
                 resultado.textContent = resultado.textContent + '.'
             }
         } 
+    },
+    setOperators : function(){
+        let numUno    = 0;
+        let numDos    = 0;
+        let numAux    = 0;
+        let operador;
+        
+        // elementos
+        let resultado = document.getElementById('display')
+        // operadores
+        let igual   = document.getElementById('igual')
+        let mas     = document.getElementById('mas')
+        let dividir = document.getElementById('dividido')
+        let menos   = document.getElementById('menos')
+        let por     = document.getElementById('por')
+         
         // eventos operadores
         mas.onclick = function(e){
             numAux = 0;
@@ -182,6 +174,12 @@ let Calculadora = {
             }
             resultado.textContent = total;
         }
+    },
+    init : function(){
+        this.keyPressEffect()
+        this.keyPressNumbers()
+        this.keyPressSymbols()
+        this.setOperators()
     }
 }
 
